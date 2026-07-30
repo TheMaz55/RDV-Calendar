@@ -66,10 +66,6 @@ Les administrateurs disposent de fonctionnalités avancées :
 
 # 🛠️ Technologies utilisées
 
-*(À compléter selon ton projet)*
-
-Exemple :
-
 - PHP
 - JavaScript
 - MySQL
