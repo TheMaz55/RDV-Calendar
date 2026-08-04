@@ -26,7 +26,7 @@ Avant de l'utiliser, vous devrez :
 2. Modifier les informations de connexion dans les fichiers concernés.
 3. Adapter la structure de la base de données selon vos besoins.
 
-Tout en haut de la page "popup.js" vous pourrez définir les horaires de votre entreprise afin que vos clients ne puissent pas ajouter de rendez-vous en dehors de ces horaires.
+Tout en haut des pages "popup.js", "adminCalendar.js" et "clientCalendar.js" vous pourrez définir les horaires et jours d'ouvertures de votre entreprise afin que vos clients ne puissent pas ajouter de rendez-vous en dehors de ces horaires.
 
 Si besoin, vous pouvez utiliser une IA en lui fournissant :
 - La structure de votre base de données.
