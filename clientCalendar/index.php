@@ -49,11 +49,118 @@ $events = $stmt->fetchAll();
 
         <!-- Partie pour les popups -->
 
+        <!-- Popup Ajouter -->
+        <div id="backgroundPopupAjouter" class="popup hidden">
+            <div class="popup-content">
+                <h2>Ajouter un événement</h2>
+                <div>
+                    <h2>Debut du RDV:</h2> <br>
+                    <input class="debut" type="datetime-local" name="dateDebut" value="">
+                </div>
+                <br>
+                <div>
+                    <h2>Fin du RDV:</h2> <br>
+                    <input class="fin" type="datetime-local" name="dateFin" value="">
+                </div>
+                <br>
+                <div>
+                    <h2>Nom du RDV:</h2> <br>
+                    <input type="text" class="title" value="">                
+                </div>
+                <br>
+                <div>
+                    <h2>Client:</h2> <br>
+                    <select name="" id="clientSelect">
+                    <?php  
+                        $stmt = $pdo->query("SELECT `id`,`last_name`, `first_name` FROM `client`");
+                        while ($row = $stmt->fetch()) {
+                            echo '<option value="'.$row["id"].'">'.$row["last_name"]." ".$row["first_name"].'</option>';
+                        }
+                    ?>
+                    </select>
+                </div>
+                <br>
+                <div class="bouttonsPopup">
+                    <button class="validerPopupEvent">Valider</button>
+                    <button class="fermerPopup">Fermer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup supprimer -->
+        <div id="backgroundPopupSupprimer" class="popup hidden">
+            <div class="popup-content">
+                <h2>Supprimer un événement</h2>
+                <select name="" id="idEvent">
+                    <option id="selection" value="">Veuillez choisir un evenement</option>
+                    <?php 
+                    $stmt = $pdo->query("SELECT title,EXTRACT(day FROM start) AS jourDebut, EXTRACT(month FROM start) AS moisDebut,EXTRACT(hour FROM start) AS heureDebutRDVdebut, EXTRACT(minute FROM start) AS minDebutRDVdebut, EXTRACT(day FROM end) AS jourFin, EXTRACT(month FROM end) AS moisFin, EXTRACT(hour FROM end) AS hourFin, EXTRACT(minute FROM end) AS minFin, id FROM `rdv_calendar` WHERE start > NOW() ORDER BY UNIX_TIMESTAMP(start) ASC ");
+                    $row = $stmt->fetch();
+                    if($row===false){
+                        echo '<option id="selection" value="">Aucun évenement futur</option>';
+
+                    }
+                    else{
+                        $stmt = $pdo->query("SELECT title,EXTRACT(day FROM start) AS jourDebut, EXTRACT(month FROM start) AS moisDebut,EXTRACT(hour FROM start) AS heureDebutRDVdebut, EXTRACT(minute FROM start) AS minDebutRDVdebut, EXTRACT(day FROM end) AS jourFin, EXTRACT(month FROM end) AS moisFin, EXTRACT(hour FROM end) AS hourFin, EXTRACT(minute FROM end) AS minFin, id FROM `rdv_calendar` WHERE start > NOW() ORDER BY UNIX_TIMESTAMP(start) ASC ");
+                        while ($row = $stmt->fetch()) {
+                            echo '<option value="'.$row["id"].'">'.$row["title"]." du ".$row["jourDebut"]."/".$row["moisDebut"].", ".$row["heureDebutRDVdebut"]."h".$row["minDebutRDVdebut"]." au ".$row["jourFin"]."/".$row["moisFin"].", ".$row["hourFin"]."h".$row["minFin"].'</option>';
+                            }
+                        }
+                    ?>
+                    
+                </select>
+                <br> <br>
+                <div class="bouttonsPopup">
+                    <button id="supprimerPopupEvent">Valider</button>
+                    <button class="fermerPopup">Fermer</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Popup contenu evenement -->
+        <div id="backgroundContenuEvenement" class="popup hidden">
+            <div class="popup-content">
+                <h2>Modifier un événement</h2>
+                <div>
+                    <h2>Debut du RDV:</h2> <br>
+                    <input class="debutModifier" type="datetime-local" name="dateDebut" value="">
+                </div>
+                <br>
+                <div>
+                    <h2>Fin du RDV:</h2> <br>
+                    <input class="finModifier" type="datetime-local" name="dateFin" value="">
+                </div>
+                <br>
+                <div>
+                    <h2>Nom du RDV:</h2> <br>
+                    <input type="text" class="titleModifier" value="">                
+                </div>
+                <br>
+                <div>
+                    <h2>Client:</h2> <br>
+                    <select name="" id="clientSelect2">
+                    <?php  
+                        $stmt = $pdo->query("SELECT `id`,`last_name`, `first_name` FROM `client`");
+                        while ($row = $stmt->fetch()) {
+                            echo '<option value="'.$row["id"].'">'.$row["last_name"]." ".$row["first_name"].'</option>';
+                        }
+                    ?>
+                    </select>
+                </div>
+                <br>
+                <div class="bouttonsPopup">
+                    <button class="ModifierEvent" value="">Modifier</button>
+                    <button class="fermerPopup">Fermer</button>
+                </div>
+            </div>
+        </div> 
 
         <script>
             const eventsBDD = <?= json_encode($events) ?>;
+            console.log(eventsBDD);
         </script>
-        <script src="./popup.js"></script>
-        <script src="./calendar.js"></script>
+        <script src="../popup.js"></script>
+        <script src="./calendarClient.js"></script>
     </body>
 </html>
