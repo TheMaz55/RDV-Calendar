@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  const heureOuverture = '9:00';
+  const heureFermeture = '19:00'; 
+
+
   var Calendar = FullCalendar.Calendar;
   var Draggable = FullCalendar.Draggable;
 
@@ -29,6 +33,14 @@ document.addEventListener('DOMContentLoaded', function() {
     dragScroll:   true,
     nowIndicator: true,
     eventOverlap: false,
+        businessHours: {
+    // jours de la semaine. un tableau d'entiers du jour de la semaine basés sur zéro (0=dimanche)
+    joursDeSemaine: [ 1, 2, 3, 4 ], //Lundi - Jeudi
+
+    startTime: heureOuverture, 
+    endTime: heureFermeture, 
+    },
+
 
     
     //le calendrier en français
