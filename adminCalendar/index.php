@@ -126,7 +126,6 @@ $events = $stmt->fetchAll();
                             }
                         }
                     ?>
-                    
                 </select>
                 <br> <br>
                 <div class="bouttonsPopup">
@@ -206,13 +205,51 @@ $events = $stmt->fetchAll();
                     <button class="fermerPopup">Fermer</button>
                 </div>
             </div>
-        </div> 
+        </div>
+        
+        <!-- Popup pour ajouter un évenement depuis un preset -->
+        <div id="backgroundContenuEvenementPreset" class="popup hidden">
+            <div class="popup-content">
+                <h2>Ajouter un événement</h2>
+                <div>
+                    <h2>Debut du RDV:</h2> <br>
+                    <input class="debutPreset" type="datetime-local" name="dateDebut" value="">
+                </div>
+                <br>
+                <div>
+                    <h2>Fin du RDV:</h2> <br>
+                    <input class="finPreset" type="datetime-local" name="dateFin" value="">
+                </div>
+                <br>
+                <div>
+                    <h2>Nom du RDV:</h2> <br>
+                    <input type="text" class="titlePreset" value="">                
+                </div>
+                <br>
+                <div>
+                    <h2>Client:</h2> <br>
+                    <select name="" id="clientSelect3">
+                    <?php  
+                        $stmt = $pdo->query("SELECT `id`,`last_name`, `first_name` FROM `client`");
+                        while ($row = $stmt->fetch()) {
+                            echo '<option value="'.$row["id"].'">'.$row["last_name"]." ".$row["first_name"].'</option>';
+                        }
+                    ?>
+                    </select>
+                </div>
+                <br>
+                <div class="bouttonsPopup">
+                    <button class="validerPopupEventPreset">Valider</button>
+                    <button class="fermerPopup">Fermer</button>
+                </div>
+            </div>
+        </div>
 
 
         <script>
             const eventsBDD = <?= json_encode($events) ?>;
         </script>
         <script src="../popup.js"></script>
-        <script src="../calendar.js"></script>
+        <script src="./calendarAdmin.js"></script>
     </body>
 </html>
